@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.0.6</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.linhanshopping</groupId>
+	<artifactId>linhanshopping-webparent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+	<name>linhanshopping-webparent</name>
+	<description>linhanshopping-webparent</description>
+	
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	
+	<modules><!-- khai báo modules chứa các project con bên trong -->
+		<module>linhanshopping-backend</module>
+		<module>linhanshopping-frontend</module>
+	</modules>
+	
+	<dependencies>
+		<!-- gói jar để cấu hình đây là một web app -->
+		<!-- Spring Boot Starter Web - Starter for building web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- gói jar để viết và chạy JUnit -->
+		<!-- Spring Boot Starter Test - Starter for testing Spring Boot applications with libraries including JUnit Jupiter, Hamcrest and Mockito -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- gói jar để sử dụng Spring Data JPA -->
+		<!-- Spring Boot Starter Data JPA - Starter for using Spring Data JPA with Hibernate -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<!-- gói jar để sử dụng Thymeleaf -->
+		<!-- Spring Boot Starter Thymeleaf - Starter for building MVC web applications using Thymeleaf views -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<!-- gói jar để kết nối tới mysql -->
+		<!-- MySQL Connector Java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.28</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- gói jar để sử dụng bootstrap -->
+		<!-- Bootstrap - WebJar for Bootstrap -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+		<!-- gói jar để sử dụng jquery -->
+		<!-- JQuery - WebJar for JQuery -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.4.1</version>
+		</dependency>
+		<!-- WebJars Locator Core - WebJar Locator Core functionality -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator-core</artifactId>
+		</dependency>
+		
+		<!-- Vì linhanshopping-backend và linhanshopping-frontend đều sử dụng các class, interface... của linhanshopping-common
+		nên phải thêm dependency của linhanshopping-common trong file pom.xml này.
+		Khi build maven của linhanshopping-common nó sẽ tạo gói jar trong folder .m2/repository/com/shoppingcart/shoppingcart-common/...
+		đó là lý do có thể thêm dependency này -->
+		<dependency>
+			<groupId>com.linhanshopping</groupId>
+			<artifactId>linhanshopping-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- KHI CẦN ĐẾN SECURITY THÌ PHẢI KHAI BÁO THÊM SPRING SECURITY VÀ SPRING SECURITY THYMELEAF -->
+	</dependencies>
+</project>

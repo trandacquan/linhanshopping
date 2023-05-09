@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <title>The Linh An Store Admin</title>
+
+    <link rel="stylesheet" type="text/css" href="static/css/sidenavbar.css" />
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <div class="sidenav">
+            <div class="admin-menu">
+                <i class="fa fa-shopping-cart fa-4x" aria-hidden="true" style="color: aliceblue;"></i>
+            </div>
+            <h2 style="text-align: center; color: #eb2f06;">Admin Menu</h2>
+            
+            <button class="dropdown-btn">
+                <i class="fa fa-user-circle" aria-hidden="true"></i> Users<i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a class="dropdown-item" th:href="@{/users/new}"> Create New</a>
+                <a class="dropdown-item" th:href="@{/users}"> Show All</a>
+            </div>
+
+            <button class="dropdown-btn">
+                <i class="fa fa-book"></i> Categories<i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a class="dropdown-item" th:href="@{/categories/new}"> Create New</a>
+                <a class="dropdown-item" th:href="@{/categories}"> Show All</a>
+            </div>
+
+            <a href="#"><i class="fa fa-barcode" aria-hidden="true"></i> Brands</a>
+            <a href="#"><i class="fa fa-tags" aria-hidden="true"></i> Products</a>
+            <a href="#"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></i> Oders</a>
+        </div>
+
+        <div class="main">
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-btn").click(function () {
+                // Đóng tất cả các dropdown khác
+                $(".dropdown-btn").not(this).removeClass("active");
+                $(".dropdown-container").not($(this).next()).slideUp();
+
+                // Mở hoặc đóng dropdown hiện tại
+                $(this).toggleClass("active");
+                var dropdownContent = $(this).next();
+                dropdownContent.slideToggle();
+            });
+
+            // Ẩn tất cả các dropdown-container khi click chuột ra ngoài
+            $(document).click(function (event) {
+                var target = $(event.target);
+                if (!target.hasClass("dropdown-btn")) {
+                    $(".dropdown-btn").removeClass("active");
+                    $(".dropdown-container").slideUp();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

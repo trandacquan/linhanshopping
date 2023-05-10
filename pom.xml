@@ -9,7 +9,7 @@
 	<name>linhanshopping-project</name>
 	<description>linhanshopping-project</description>
 	
-	<modules> <!-- khai báo modules chứa các project con bên trong -->
+	<modules>
 		<module>linhanshopping-common</module>
 		<module>linhanshopping-webparent</module>
 	</modules>

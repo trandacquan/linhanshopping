@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <title>The Linh An Store Admin</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common.js}"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/sidenavbar.css" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- NAVIGATION SIDE BAR -->
+        <div class="sidenav">
+            <div class="admin-menu">
+                <i class="fa fa-shopping-cart fa-4x" aria-hidden="true" style="color: aliceblue;"></i>
+            </div>
+            <h2 style="text-align: center; color: #eb2f06">LINHAN MART</h2>
+            <hr
+                style="border:0; height: 1px;  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(227, 227, 227, 0.75), rgba(0, 0, 0, 0)); margin-top: 16px;">
+            <button class="dropdown-btn">
+                <i class="fa fa-user-circle" aria-hidden="true"></i> Users<i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a class="dropdown-item" th:href="@{/users/new}"> Create New</a>
+                <a class="dropdown-item" th:href="@{/users}"> Show All</a>
+            </div>
+
+            <button class="dropdown-btn">
+                <i class="fa fa-book"></i> Categories<i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a class="dropdown-item" th:href="@{/categories/new}"> Create New</a>
+                <a class="dropdown-item" th:href="@{/categories}"> View All</a>
+            </div>
+
+            <!-- <a href="#"><i class="fa fa-barcode" aria-hidden="true"></i> Brands</a> -->
+            <button class="dropdown-btn">
+                <i class="fa fa-barcode" aria-hidden="true"></i> Brand<i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a class="dropdown-item" th:href="@{/brands/new}"> Create New</a>
+                <a class="dropdown-item" th:href="@{/brands}"> View All</a>
+            </div>
+
+            <!-- <a href="#"><i class="fa fa-tags" aria-hidden="true"></i> Products</a> -->
+            <button class="dropdown-btn">
+                <i class="fa fa-tags" aria-hidden="true"></i> Product<i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a class="dropdown-item" th:href="@{/products/new}"> Create New</a>
+                <a class="dropdown-item" th:href="@{/products}"> View All</a>
+            </div>
+            <a href="#"><i class="fa fa-male" aria-hidden="true"></i> Customers</a>
+            <a href="#"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></i> Oders</a>
+        </div>
+
+        <div class="full-details main" style="margin-left: 200px;">
+            <table class="table table-bordered table-hover table-striped table-responsive-xl">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="hideable-column">
+                            ID
+                        </th>
+
+                        <th>Photos</th>
+
+                        <th class="hideable-column">
+                            E-mail
+                        </th>
+
+                        <th>First Name</th>
+
+                        <th>Last Name</th>
+
+                        <th>Roles</th>
+
+                        <th>Enabled/Disable</th>
+
+                        <th>Edit/Delete</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-btn").click(function () {
+                // Đóng tất cả các dropdown khác
+                $(".dropdown-btn").not(this).removeClass("active");
+                $(".dropdown-container").not($(this).next()).slideUp();
+
+                // Mở hoặc đóng dropdown hiện tại
+                $(this).toggleClass("active");
+                var dropdownContent = $(this).next();
+                dropdownContent.slideToggle();
+            });
+
+            // Ẩn tất cả các dropdown-container khi click chuột ra ngoài
+            $(document).click(function (event) {
+                var target = $(event.target);
+                if (!target.hasClass("dropdown-btn")) {
+                    $(".dropdown-btn").removeClass("active");
+                    $(".dropdown-container").slideUp();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

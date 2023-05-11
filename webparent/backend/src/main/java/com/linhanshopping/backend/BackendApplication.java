@@ -14,6 +14,7 @@ public class BackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
+		//Company: http://localhost:8082/LinhanShoppingBackend/users/page/1
 	}
 
 }

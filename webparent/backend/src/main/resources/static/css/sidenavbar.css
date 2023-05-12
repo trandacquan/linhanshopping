@@ -20,7 +20,7 @@
 
 /* custom styling for all icons */
 .fa-shopping-cart {
-  background-color: #eb2f06;
+  background-color: #ff4757;
   border-radius: 0.2em;
   padding: 0.3em;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -36,8 +36,9 @@
 .dropdown-btn {
     padding: 8px 8px 8px 16px;
     text-decoration: none;
-    font-size: 18px;
-    color: #ffffff;
+    font-size: 16px;
+    /* color: #ffffff; */
+    color: #fff;
     display: block;
     border: none;
     background: none;
@@ -73,6 +74,7 @@
 
 .active {
     background-color: #57606f;
+    /* color: #fff; */
     color: #fff;
 }
 

@@ -1,6 +1,9 @@
 package com.linhanshopping.common.entity;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "users")
@@ -29,20 +33,18 @@ public class User extends IdBasedEntity {
 
 	@Column(length = 64)
 	private String photos;
-	
+
 	private boolean enabled;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "users_roles",
-		joinColumns = @JoinColumn(name = "user_id"),
-		inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
 	public User() {
 		super();
 	}
 
-	public User(String email, String firstName, String lastName, String password) {
+	public User(String email, String password, String firstName, String lastName) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -94,6 +96,20 @@ public class User extends IdBasedEntity {
 		return roles;
 	}
 
+	/* Xuất ra các Role theo dạng String */
+	public String getRolesToString() {
+		String roleNames = "";
+		int count = 0;// Biến đếm để xác định phần tử cuối cùng để không thêm dấu phẩy
+		for (Object object : roles) {// Duyệt qua các phần tử Roles
+			roleNames += object.toString();
+			if (count < roles.size() - 1) {
+				roleNames += ", ";
+			}
+			count++;
+		}
+		return roleNames;
+	}
+
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
@@ -105,7 +121,17 @@ public class User extends IdBasedEntity {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	
-	
+
+	@Transient // @Transient sẽ bị bỏ qua khi làm việc với entity user
+	public String getFullName() {
+		return firstName + " " + lastName;
+	}
+
+	@Transient // @Transient sẽ bị bỏ qua khi làm việc với entity user
+	public String getPhotosImagePath() {
+		if (id == null || photos == null)
+			return "/images/default-user.png";
+		return "/user-photos/" + this.id + "/" + this.photos;
+	}
 
 }

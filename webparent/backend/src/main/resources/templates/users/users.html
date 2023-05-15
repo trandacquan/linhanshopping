@@ -22,7 +22,8 @@
                 <div class="admin-menu">
                     <!-- <i class="fa fa-shopping-cart fa-4x" aria-hidden="true" style="color: aliceblue;"></i> -->
                     <a class="navbar-brand" th:href="@{/}">
-                        <img th:src="@{/images/linhanshopping_logo_3.png}" width="130px" style="display: block; margin: 0 auto;"/>
+                        <img th:src="@{/images/linhanshopping_logo_3.png}" width="130px"
+                            style="display: block; margin: 0 auto;" />
                     </a>
                 </div>
                 <h6 style="text-align: center; color: #ff0015;">ADMIN VERSION 1.0.1</h6>
@@ -104,7 +105,7 @@
                             <td>
                                 <span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
                                 <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
-                                style="width: 100px" />
+                                    style="width: 100px" />
                             </td>
                             <td class="hideable-column">[[${user.email}]]</td>
                             <td>[[${user.firstName}]]</td>
@@ -131,6 +132,47 @@
 
                     </tbody>
                 </table>
+
+                <div>
+                    <div class="text-center m-1" th:if="${totalItems > 0}">
+                        <span>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
+                    </div>
+                    <div class="text-center m-1" th:unless="${totalItems > 0}">
+                        <span>No users found</span>
+                    </div>
+
+                    <div th:if="${totalPages > 1}">
+                        <nav>
+
+                            <ul class="pagination justify-content-center flex-wrap">
+                                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                                    <a class="page-link"
+                                        th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">First</a>
+                                </li>
+                                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                                    <a class="page-link"
+                                        th:href="@{'/users/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Previous</a>
+                                </li>
+
+                                <li th:class="${currentPage != i ? 'page-item': 'page-item active'}"
+                                    th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                    <a class="page-link"
+                                        th:href="@{'/users/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${i}]]</a>
+                                </li>
+
+                                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                                    <a class="page-link"
+                                        th:href="@{'/users/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Next</a>
+                                </li>
+
+                                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                                    <a class="page-link"
+                                        th:href="@{'/users/page/' + ${totalPages}  + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Last</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

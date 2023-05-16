@@ -30,12 +30,12 @@ public class UserController {
 	}
 
 	/* Hàm list All Users dùng để list tất cả Users không phân trang */
-//	@GetMapping("/users/page/{pageNum}")
-//	public String listAllUsers(@PathVariable(name = "pageNum") int pageNum, Model model) {
-//		List<User> listUsers = userService.listAll();
-//		model.addAttribute("listUsers", listUsers);
-//		return "users/users";
-//	}
+	@GetMapping("/users/pages")
+	public String listAllUsers(Model model) {
+		List<User> listUsers = userService.listAll();
+		model.addAttribute("listUsers", listUsers);
+		return "users/users";
+	}
 
 	@GetMapping("/users/page/{pageNum}")
 	public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,

@@ -28,25 +28,54 @@ a {
 }
 
 a:hover{
-	color: #1e90ff;
+	color: #0080ff;
 }
 
 .button-link {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	padding: 10px;
-	border-radius: 10px;
-	text-decoration: none;
-	background-color: #f0f0f0;
-	color: #333;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    color: #0080ff;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+	margin: 5px 0;
 }
 
 .button-link:hover {
-	background-color: #ccc;
 	text-decoration: none;
+    background-color: #0080ff;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: #fff;
 }
 
 .button-link i {
-	margin-right: 5px;
+    margin-right: 5px;
+}
+
+
+.title-container {
+	padding-top: 20px;
+
+}
+
+.page-title {
+	font-size: 32px;
+	color: #0080ff;
+	text-transform: uppercase;
+	letter-spacing: 4px;
+	margin: 0;
+	padding: 0 10px;
+	animation: scale-in 1s ease-in-out;
+}
+
+@keyframes scale-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }

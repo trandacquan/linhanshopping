@@ -79,3 +79,56 @@ a:hover{
 		opacity: 1;
 	}
 }
+
+.mydropbtn {
+    background-color: #f0f0f0;
+    color: #0080ff;
+    border-radius: 5px;
+    padding: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.mydropbtn:hover, .mydropbtn:focus {
+    background-color: #0080ff;
+    color: #fff;
+    outline: none;
+}
+
+.myDropdown {
+    position: relative;
+    display: inline-block;
+	
+}
+
+.my-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f0f0f0;
+    min-width: 100px;
+    overflow: auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 1;
+	border-radius: 5px;
+	border: solid 0.5px grey;
+	
+}
+
+.my-dropdown-content a {
+    color: black;
+    padding: 5px 15px;
+    text-decoration: none;
+    display: block;
+	
+}
+
+.myDropdown:hover .my-dropdown-content {
+    display: block;
+	
+}
+
+.my-dropdown-content a:hover {
+	color: #0080ff;
+	transition: color 0.3s;
+}
+

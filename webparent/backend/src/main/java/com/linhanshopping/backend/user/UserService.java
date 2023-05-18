@@ -1,7 +1,7 @@
 package com.linhanshopping.backend.user;
 
-
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.transaction.Transactional;
 
@@ -19,7 +19,7 @@ import com.linhanshopping.common.entity.User;
 @Transactional
 public class UserService {
 
-	public static final int USERS_PER_PAGE = 5;
+//	public static final int USERS_PER_PAGE = 5;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -31,18 +31,44 @@ public class UserService {
 		return (List<User>) userRepo.findAll(Sort.by("firstName").ascending());
 	}
 
-	public Page<User> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
+	public Page<User> listByPage(int pageNum, String sortField, String sortDir, String keyword, int USERS_PER_PAGE) {
 		// Đối tượng sort sẽ sắp xếp các giá trị trả về theo biến sortField
 		// tăng dần asc hoặc giảm dần desc
 		Sort sort = Sort.by(sortField);
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-		
+
 		Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE, sort);
-		
-		if(keyword!=null) {
+
+		if (keyword != null) {
 			return userRepo.findAll(keyword, pageable);
 		}
 		return userRepo.findAll(pageable);
+	}
+	
+	public int count() {
+		return (int) userRepo.count();
+	}
+
+	public List<Integer> calculateSegment(int userCount, int baseSegment) {
+		List<Integer> segments = new ArrayList<>();
+
+		if (userCount <= baseSegment) {
+			segments.add(userCount);
+		} else {
+			int segmentCount = userCount / baseSegment;
+
+			for (int i = 1; i <= segmentCount; i++) {
+				segments.add(i * baseSegment);
+			}
+			
+			int e = segments.get(segments.size()-1);
+			
+			if(userCount!=e) {
+				segments.add(userCount); // Phân đoạn "All"
+			}
+		}
+		
+		return segments;
 	}
 
 }

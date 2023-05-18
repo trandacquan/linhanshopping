@@ -26,14 +26,14 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
-.admin-menu {
+.admin-logo {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .sidenav a,
-.dropdown-btn {
+.sidedropdown-btn {
     padding: 8px 8px 8px 16px;
     text-decoration: none;
     font-size: 16px;
@@ -55,15 +55,18 @@
 }
 
 .sidenav a:hover,
-.dropdown-btn:hover {
-    color: #00FF00;
+.sidedropdown-btn:hover {
+    color: #44bd32;
+    transition: color 0.3s;
 }
 
-/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-.dropdown-container {
+/* sidedropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the sidedropdown content */
+.sidedropdown-container {
     display: none;
     background-color: #57606f;
     padding-left: 8px;
+    border-radius: 5px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
 }
 
 /* Optional: Style the caret down icon */
@@ -73,11 +76,11 @@
 }
 
 .active {
-    background-color: #57606f;
+    /* background-color: #57606f; */
     /* color: #fff; */
     color: #fff;
 }
 
-/* .navbar-nav > li > .dropdown-menu { background-color: #FF0000; } */
+/* .navbar-nav > li > .sidedropdown-menu { background-color: #FF0000; } */
 
-.dropdown-item:hover { background-color: #57606f; }
+.sidedropdown-item:hover { background-color: #57606f; border-radius: 5px;}

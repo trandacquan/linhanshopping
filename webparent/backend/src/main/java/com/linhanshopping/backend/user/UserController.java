@@ -15,12 +15,12 @@ import com.linhanshopping.common.entity.User;
 @Controller
 public class UserController {
 
-	private String defaultRedirectURL = "redirect:/users/page/1?sortField=firstName&sortDir=asc&segment=5";
+	private String defaultRedirectURL = "redirect:/users/page/1?sortField=firstName&sortDir=asc&size=5";
 
 	@Autowired
 	private UserService userService;
 
-	/*
+	/**
 	 * Hàm Show tất cả Users Khi truy cập /users thì mặc định sẽ load URL:
 	 * defaultRedirectURL = "redirect:/users/page/1"
 	 */
@@ -39,19 +39,13 @@ public class UserController {
 
 	@GetMapping("/users/page/{pageNum}")
 	public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
-			@Param("sortField") String sortField, @Param("sortDir") String sortDir, @Param("keyword") String keyword,
-			@Param("segment") int segment) {
+			@Param("sortField") String sortField, @Param("sortDir") String sortDir, @Param("keyword") String keyword) {
 
-		int segment_base = segment;
-		int segment_constant = 5;
-
-		Page<User> page = userService.listByPage(pageNum, sortField, sortDir, keyword, segment_base);
+		Page<User> page = userService.listByPage(pageNum, sortField, sortDir, keyword);
 		List<User> listUsers = page.getContent();
 
-		List<Integer> segments = userService.calculateSegment(userService.count(), segment_constant);
-
-		long startCount = (pageNum - 1) * segment_base + 1;
-		long endCount = startCount + segment_base - 1;
+		long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE + 1;
+		long endCount = startCount + UserService.USERS_PER_PAGE - 1;
 
 		if (endCount > page.getTotalElements()) {
 			endCount = page.getTotalElements();
@@ -59,6 +53,7 @@ public class UserController {
 
 		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 
+		model.addAttribute("title", "User Controller");// truyen title
 		model.addAttribute("currentPage", pageNum);// Trang hiện tại
 		model.addAttribute("totalPages", page.getTotalPages());// Tổng số trang
 		model.addAttribute("startCount", startCount);// Index của user bắt đầu
@@ -69,7 +64,6 @@ public class UserController {
 		model.addAttribute("sortDir", sortDir);// sắp xếp tăng dần hoặc giảm dần
 		model.addAttribute("reverseSortDir", reverseSortDir);// đảo ngược sắp xếp
 		model.addAttribute("keyword", keyword);// từ khóa tìm kiếm
-		model.addAttribute("listSegments", segments);// Trả về các list segments
 
 		return "users/users";// trả về users/users.html
 	}

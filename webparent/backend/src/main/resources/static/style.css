@@ -26,48 +26,14 @@ a {
 	text-decoration: none;
 }
 
-a:hover{
-	color: #0080ff;
-}
-
-.button-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px;
-    border-radius: 5px;
-    text-decoration: none;
-    background-color: #f0f0f0;
-    color: #0080ff;
-    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
-	margin: 5px 0;
-}
-
-.button-link:hover {
-	text-decoration: none;
-    background-color: #0080ff;
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    color: #fff;
-}
-
-.button-link i {
-    margin-right: 5px;
-}
-
-
-.title-container {
-	padding-top: 20px;
-
-}
-
 .page-title {
 	font-size: 32px;
 	color: #0080ff;
 	text-transform: uppercase;
-	letter-spacing: 4px;
+	letter-spacing: 2px;
 	margin: 0;
-	padding: 0 10px;
-	animation: scale-in 1s ease-in-out;
+	padding-top: 16px;
+	animation: scale-in .5s ease-in-out;
 }
 
 @keyframes scale-in {
@@ -79,22 +45,11 @@ a:hover{
 	}
 }
 
-
-/* body {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 0.8em;
-
-} */
-
 .sidenav {
     height: 100vh;
-    /* width: 200px; */
-    /* position: fixed; */
     z-index: 1;
     top: 0;
     left: 0;
-    /* background-color: #2C3A47; */
-    /* overflow-x: hidden; */
     padding-top: 16px;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     /* https://getcssscan.com/css-box-shadow-examples #93 */

@@ -14,16 +14,17 @@
     /* background-color: #2C3A47; */
     /* overflow-x: hidden; */
     padding-top: 16px;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     /* https://getcssscan.com/css-box-shadow-examples #93 */
+    background-image: linear-gradient( 94.3deg,  rgba(26,33,64,1) 10.9%, rgba(81,84,115,1) 87.1% );
 }
 
 /* custom styling for all icons */
 .fa-shopping-cart {
-  background-color: #ff4757;
-  border-radius: 0.2em;
-  padding: 0.3em;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    background-color: #ff4757;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .admin-logo {
@@ -46,6 +47,7 @@
     text-align: left;
     cursor: pointer;
     outline: none;
+
 }
 
 /* Optional: Style the caret down icon */
@@ -58,15 +60,19 @@
 .sidedropdown-btn:hover {
     color: #44bd32;
     transition: color 0.3s;
+
 }
 
 /* sidedropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the sidedropdown content */
 .sidedropdown-container {
     display: none;
-    background-color: #57606f;
-    padding-left: 8px;
-    border-radius: 5px;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    background-color: transparent;
+    border: 1px solid rgb(77, 77, 77); /* Thêm đường viền 1px solid màu xám grey */
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    /* padding-left: 8px;
+    border-radius: 5px; */
+    /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
 }
 
 /* Optional: Style the caret down icon */
@@ -83,4 +89,36 @@
 
 /* .navbar-nav > li > .sidedropdown-menu { background-color: #FF0000; } */
 
-.sidedropdown-item:hover { background-color: #57606f; border-radius: 5px;}
+.sidedropdown-item:hover {
+    background-color: transparent;
+    border-radius: 5px;
+}
+
+.sidedropdown-btn:focus,
+.sidedropdown-item:focus {
+    border-top-left-radius: 5px; /* Bo tròn góc trên trái */
+    border-top-right-radius: 5px; /* Bo tròn góc trên phải */
+    border-bottom: none; /* Bỏ đường viền bên dưới */
+    box-shadow: 0 0 0 1px rgb(77, 77, 77), 0 0 0 1px transparent; /* Hiệu ứng viền màu xám grey */
+    outline: none; /* Loại bỏ viền mặc định */
+    outline-offset: -2px; /* Dịch chuyển viền lùi vào bên trong */
+    transition: box-shadow 0.3s ease-in-out; /* Áp dụng hiệu ứng transition trong 0.3s */
+}
+
+
+.sidedropdown-container:focus-within {
+    display: block; /* Hiển thị sidedropdown-container khi bất kỳ mục con trong nó được focus */
+    animation: fade-in 0.1s ease-in-out forwards; /* Áp dụng hiệu ứng fade-in */
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0; /* Bắt đầu với độ mờ là 0 */
+        transform: translateX(-10px); /* Di chuyển điểm bắt đầu 10px sang trái */
+    }
+    100% {
+        opacity: 1; /* Kết thúc với độ mờ là 1 */
+        transform: translateX(0); /* Di chuyển về vị trí ban đầu */
+    }
+}
+

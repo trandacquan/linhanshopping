@@ -19,21 +19,21 @@
 
 <body>
     <div th:fragment="export-menu(field,remove)" th:remove="${remove}">
-        <div class="p-2">
-            <a th:href="@{'/' + ${field} + '/new'}" class="button-link">
-                <i class="fas fa-user-plus mr-2"></i>Add [[${field}]]
+        <div class="p-3 btn-group">
+            <a th:href="@{'/' + ${field} + '/new'}" class="btn btn-outline-primary">
+                <i class="fas fa-user-plus p-2"></i>Add [[${field}]]
             </a>
 
-            <a th:href="@{'/' + ${field} + '/export/csv'}" class="button-link">
-                <i class="fas fa-file-csv mr-2"></i>Export CSV
+            <a th:href="@{'/' + ${field} + '/export/csv'}" class="btn btn-outline-primary">
+                <i class="fas fa-file-csv p-2"></i>Export CSV
             </a>
 
-            <a th:href="@{'/' + ${field} + '/export/excel'}" class="button-link">
-                <i class="fas fa-file-excel mr-2"></i>Export Excel
+            <a th:href="@{'/' + ${field} + '/export/excel'}" class="btn btn-outline-primary">
+                <i class="fas fa-file-excel p-2"></i>Export Excel
             </a>
 
-            <a th:href="@{'/' + ${field} + '/export/pdf'}" class="button-link">
-                <i class="fas fa-file-pdf"></i>Export PDF
+            <a th:href="@{'/' + ${field} + '/export/pdf'}" class="btn btn-outline-primary">
+                <i class="fas fa-file-pdf p-2"></i>Export PDF
             </a>
         </div>
     </div>
@@ -65,7 +65,11 @@
     <th th:fragment="column_link(moduleURL, fieldName, columnLabel, remove)" th:remove="${remove}">
         <!-- th:remove='tag' =>bỏ thẻ ngoài cùng, th:remove='none' =>giữ thẻ ngoài cùng -->
         <a class="text-primary"
-            th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName}  +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
+            th:href="@{${moduleURL} + '/page/' + ${currentPage}
+             + '?sortField=' + ${fieldName}
+             +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir}
+             + ${keyword != null ? '&keyword=' + keyword : ''}
+             + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
             [[${columnLabel}]]
         </a>
 
@@ -110,11 +114,68 @@
     </div>
 
     <div th:fragment="pagination(moduleURL, entityName)" th:remove="tag">
-        <div>
-            
+        <div class="text-center m-1" th:if="${totalItems > 0}">
+            <span>Showing [[${entityName}]] number [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
+        </div>
+        <div class="text-center m-1" th:unless="${totalItems > 0}">
+            <span>There are no any [[${entityName}]] found</span>
+        </div>
+
+        <div th:if="${totalPages > 1}"><!--Khi tổng số trang > 1 thì mới hiểu thị pagination-->
+            <nav>
+                <ul class="pagination justify-content-center flex-wrap">
+                    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                        <a th:replace="fragments :: page_link(${moduleURL}, 1, 'First')"></a>
+                    </li>
+
+                    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                        <a th:replace="fragments :: page_link(${moduleURL}, ${currentPage - 1}, 'Previous')"></a>
+                    </li>
+
+                    <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
+                        th:each="i : ${#numbers.sequence(1, totalPages)}"><!-- tạo vòng lặp bắt đầu từ 1 đến totalPages)} -->
+                        <a th:replace="fragments :: page_link(${moduleURL}, ${i}, ${i})"></a>
+                    </li>
+
+                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                        <a th:replace="fragments :: page_link(${moduleURL}, ${currentPage + 1}, 'Next')"></a>
+                    </li>
+
+                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                        <a th:replace="fragments :: page_link(${moduleURL}, ${totalPages}, 'Last')"></a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 
+    <a th:fragment="page_link(moduleURL, pageNum, label)"
+     class="page-link"
+     th:href="@{${moduleURL} + '/page/' + ${pageNum}
+     + '?sortField=' + ${sortField}
+     + '&sortDir=' + ${sortDir}
+     + ${keyword != null ? 'keyword=' + keyword : ''}
+     + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
+     [[${label}]]
+    </a>
+
+    <div th:fragment="footer" class="d-flex flex-wrap justify-content-around text-center
+                                    align-items-center py-3 my-4 border-top bg-light">
+		<p class="cold-md-4 mb-0 text-muted">Linh An Mart Control Panel - Copyright 2023 &copy;</p>
+
+        <a class="col-md-4 mx-auto d-block navbar-brand" th:href="@{/}">
+            <img th:src="@{/images/linhanshopping_logo_3.png}" width="80px"
+             style="display: block; margin: 0 auto;" />
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+	</div>
 </body>
 
 </html>

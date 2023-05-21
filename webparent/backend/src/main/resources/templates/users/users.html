@@ -10,7 +10,7 @@
 
             <div class="col-sm-10">
                 <div class="title-container">
-                    <h2 class="page-title">manage | [[${title}]]</h2>
+                    <h2 class="page-title px-3">manage | [[${title}]]</h2>
                 </div>
 
                 <div class="d-flex justify-content-between">
@@ -28,7 +28,7 @@
                             <th>Photos</th>
 
                             <th class="hideable-column">
-                            <th th:replace="fragments :: column_link('/users', 'email', 'E-mail', 'tag')"></th>
+                                <th th:replace="fragments :: column_link('/users', 'email', 'E-mail', 'tag')"></th>
                             </th>
 
                             <th th:replace="fragments :: column_link('/users', 'firstName', 'First Name', 'none')"></th>
@@ -63,93 +63,20 @@
                 </table>
 
                 <div class="d-flex justify-content-between">
-                    <div>
-                        <div class="text-center m-1" th:if="${totalItems > 0}">
-                            <span>Showing users number [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
-                        </div>
-
-                        <div class="text-center m-1" th:unless="${totalItems > 0}">
-                            <span>No users found</span>
-                        </div>
-                    </div>
-
-                    <div th:if="${totalPages > 1}">
-                        <nav>
-                            <ul class="pagination justify-content-center flex-wrap">
-                                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                                    <a class="page-link"
-                                        th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">First</a>
-                                </li>
-                                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                                    <a class="page-link"
-                                        th:href="@{'/users/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Previous</a>
-                                </li>
-
-                                <li th:class="${currentPage != i ? 'page-item': 'page-item active'}"
-                                    th:each="i : ${#numbers.sequence(1, totalPages)}">
-                                    <a class="page-link"
-                                        th:href="@{'/users/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${i}]]</a>
-                                </li>
-
-                                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                                    <a class="page-link"
-                                        th:href="@{'/users/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Next</a>
-                                </li>
-
-                                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                                    <a class="page-link"
-                                        th:href="@{'/users/page/' + ${totalPages}  + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Last</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                    <div th:replace="fragments :: pagination('/users', 'users')"></div>
                 </div>
+
+                <div th:replace="fragments :: footer"></div>
             </div>
         </div>
     </div>
 
-    <script>
+    <script th:src="@{/js/navigation.js}"></script>
+    
+    <script type = "text/javascript">
         $(document).ready(function () {
-            $(".sidedropdown-btn").click(function () {
-                // Đóng tất cả các sidedropdown khác
-                $(".sidedropdown-btn").not(this).removeClass("active");
-                $(".sidedropdown-container").not($(this).next()).slideUp();
-
-                // Mở hoặc đóng sidedropdown hiện tại
-                $(this).toggleClass("active");
-                var sidedropdownContent = $(this).next();
-                sidedropdownContent.slideToggle();
-            });
-
-            // Ẩn tất cả các sidedropdown-container khi click chuột ra ngoài
-            $(document).click(function (event) {
-                var target = $(event.target);
-                if (!target.hasClass("sidedropdown-btn")) {
-                    $(".sidedropdown-btn").removeClass("active");
-                    $(".sidedropdown-container").slideUp();
-                }
-            });
-
+            showOrHideButtonInSideMenuFunction();
         });
-
-        /* When the user clicks on the button, toggle between hiding and showing the dropdown content */
-        function myDropdownFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
-
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function (event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
     </script>
 </body>
 

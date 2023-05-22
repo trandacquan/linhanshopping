@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.linhanshopping.common.entity.Role;
 import com.linhanshopping.common.entity.User;
 
 @Controller
@@ -66,6 +67,21 @@ public class UserController {
 		model.addAttribute("keyword", keyword);// từ khóa tìm kiếm
 
 		return "users/users";// trả về users/users.html
+	}
+
+	@GetMapping("/users/new")
+	public String newUser(Model model) {
+		List<Role> listRoles = userService.listRoles();
+
+		User user = new User();
+		user.setEnabled(true);
+
+		model.addAttribute("user", user);// khi trả về form user_form.html thì bắt buộc phải khởi tạo 1 đối tượng user,
+		// vì trong form có khai báo th:object="${user}"
+		model.addAttribute("listRoles", listRoles);
+		model.addAttribute("title", "User");
+
+		return "users/user_form";
 	}
 
 }

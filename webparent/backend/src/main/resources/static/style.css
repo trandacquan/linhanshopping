@@ -26,14 +26,48 @@ a {
 	text-decoration: none;
 }
 
+a:hover{
+	color: #0080ff;
+}
+
+.button-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    color: #0080ff;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+	margin: 5px 0;
+}
+
+.button-link:hover {
+	text-decoration: none;
+    background-color: #0080ff;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: #fff;
+}
+
+.button-link i {
+    margin-right: 5px;
+}
+
+
+.title-container {
+	padding-top: 20px;
+
+}
+
 .page-title {
 	font-size: 32px;
 	color: #0080ff;
 	text-transform: uppercase;
-	letter-spacing: 2px;
+	letter-spacing: 4px;
 	margin: 0;
-	padding-top: 16px;
-	animation: scale-in .5s ease-in-out;
+	padding: 0 10px;
+	animation: scale-in 1s ease-in-out;
 }
 
 @keyframes scale-in {
@@ -45,79 +79,5 @@ a {
 	}
 }
 
-.sidenav {
-    height: 100vh;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    padding-top: 16px;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-    /* https://getcssscan.com/css-box-shadow-examples #93 */
-}
 
-/* custom styling for all icons */
-.fa-shopping-cart {
-  background-color: #ff4757;
-  border-radius: 0.2em;
-  padding: 0.3em;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-}
 
-.admin-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.sidenav a,
-.sidedropdown-btn {
-    padding: 8px 8px 8px 16px;
-    text-decoration: none;
-    font-size: 16px;
-    /* color: #ffffff; */
-    color: #fff;
-    display: block;
-    border: none;
-    background: none;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    outline: none;
-}
-
-/* Optional: Style the caret down icon */
-.fa-caret-down {
-    float: right;
-    padding-right: 8px;
-}
-
-.sidenav a:hover,
-.sidedropdown-btn:hover {
-    color: #44bd32;
-    transition: color 0.3s;
-}
-
-/* sidedropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the sidedropdown content */
-.sidedropdown-container {
-    display: none;
-    background-color: #57606f;
-    padding-left: 8px;
-    border-radius: 5px;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
-}
-
-/* Optional: Style the caret down icon */
-.fa-caret-down {
-    float: right;
-    padding-right: 8px;
-}
-
-.active {
-    /* background-color: #57606f; */
-    /* color: #fff; */
-    color: #fff;
-}
-
-/* .navbar-nav > li > .sidedropdown-menu { background-color: #FF0000; } */
-
-.sidedropdown-item:hover { background-color: #57606f; border-radius: 5px;}

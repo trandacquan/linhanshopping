@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.linhanshopping.backend.role.RoleRepository;
+import com.linhanshopping.common.entity.Role;
 import com.linhanshopping.common.entity.User;
 
 @Service
@@ -44,7 +45,7 @@ public class UserService {
 		}
 		return userRepo.findAll(pageable);
 	}
-	
+
 	public int count() {
 		return (int) userRepo.count();
 	}
@@ -60,15 +61,19 @@ public class UserService {
 			for (int i = 1; i <= segmentCount; i++) {
 				segments.add(i * baseSegment);
 			}
-			
-			int e = segments.get(segments.size()-1);
-			
-			if(userCount!=e) {
+
+			int e = segments.get(segments.size() - 1);
+
+			if (userCount != e) {
 				segments.add(userCount); // Phân đoạn "All"
 			}
 		}
-		
+
 		return segments;
+	}
+
+	public List<Role> listRoles() {
+		return (List<Role>) roleRepo.findAll();// .findAll() trả về Iterable<Role> -->ép kiểu thành List<Role>
 	}
 
 }

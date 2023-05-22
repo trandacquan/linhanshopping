@@ -1,4 +1,4 @@
-function showOrHideButtonInSideMenuFunction() {//Side Menu Function
+$(document).ready(function () {
     // Hàm Ẩn Hiện sidedropdown khi ấn vào 1 nút bên side dropdown
     $(".sidedropdown-btn").click(function () {
         // Mở hoặc đóng sidedropdown hiện tại khi click
@@ -19,7 +19,4 @@ function showOrHideButtonInSideMenuFunction() {//Side Menu Function
             $(".sidedropdown-container").slideUp();
         }
     });
-
-    
-   
-}
+});

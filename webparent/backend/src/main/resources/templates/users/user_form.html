@@ -15,11 +15,11 @@
 
                 <form th:action="@{users/save}" method="post" style="max-width: 800px; margin: 0 auto"
                     th:object="${user}" enctype="multipart/form-data" onsubmit="return checkEmailUnique(this);">
-                    
+
                     <input type="hidden" th:field="*{id}">
                     <!-- id là tên thuộc tính trong entity, th:field="*{id}" tương đương id = "id" và name = "id" -->
 
-                    <div class= "border border rounded p-4 mt-2">
+                    <div class="border border rounded p-4 mt-3">
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label border-bottom">Email </label>
                             <div class="col-sm-8">
@@ -96,17 +96,42 @@
         </div>
 
         <div th:replace="modal_fragments :: modal_dialog"></div>
+
     </div>
 
+    <script th:src="@{/js/navigation.js}"></script>
+    <script th:src="@{/js/common_form.js}"></script>
     <script type="text/javascript">
         MAX_FILE_SIZE = 102400;
 
         moduleURL = "[[@{/users}]]";
 
+        function checkEmailUnique(form) {
+            url = "[[@{/users/check_email}]]";//Truyền vào một url để ajax gọi xuống server
+            userEmail = $("#email").val();
+            userId = $("#id").val();
 
+            csrfValue = $("input[name='_csrf']").val();
+
+            params = { id: userId, email: userEmail, _csrf: csrfValue };
+            // params = { id: userId, email: userEmail};
+            //Tạo đối tượng obj params để truyền xuống controller (do là method post)
+
+            $.post(url, params, function (response) {
+                if (response == "OK") {
+                    form.submit();
+                } else if (response == "Duplicated") {
+                    showWarningModal("There is another user having the email " + userEmail);
+                } else {
+                    showErrorModal("Ajax unknow response from server");
+                }
+            }).fail(function () {
+                showErrorModal("Ajax could not connect to the server");
+            });
+            return false;
+        }
     </script>
 
-    <script th:src="@{/js/navigation.js}"></script>
-    <script th:src="@{/js/common_form.js}"></script>
+
 
 </body>

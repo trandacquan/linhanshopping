@@ -37,12 +37,6 @@ function checkFileSize(fileInput) {
     }
 }
 
-function showModalDialog(title, message) {
-    $("#modalTitle").text(title);
-    $("#modalBody").text(message);
-    $("#modalDialog").modal();
-}
-
 function showErrorModal(message) {
     showModalDialog("Error", message);
 }
@@ -50,3 +44,10 @@ function showErrorModal(message) {
 function showWarningModal(message) {//modal hiển thị cảnh báo
     showModalDialog("Warning", message);
 }
+
+function showModalDialog(title, message) {
+    $("#modalTitle").text(title);
+    $("#modalBody").text(message);
+    $("#modalDialog").modal();
+}
+

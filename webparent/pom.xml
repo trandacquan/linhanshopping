@@ -89,5 +89,16 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- KHI CẦN ĐẾN SECURITY THÌ PHẢI KHAI BÁO THÊM SPRING SECURITY VÀ SPRING SECURITY THYMELEAF -->
+		<!-- gói jar để sử dụng Spring Security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!-- gói jar để sử dụng Spring Security bằng Thymeleaf  -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+	
 	</dependencies>
 </project>

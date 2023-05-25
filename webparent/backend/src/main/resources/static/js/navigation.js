@@ -9,6 +9,11 @@ $(document).ready(function () {
         // Đóng tất cả các sidedropdown khác khi mở 1 sidedropdown hiện tại
         $(".sidedropdown-btn").not($(this).removeClass("active"));
         $(".sidedropdown-container").not($(this).next()).slideUp();
+
+        $("#logoutLink").on("click", function (e) {
+            e.preventDefault();
+            document.logoutForm.submit();//<form th:action="@{/logout}" method="post" name="logoutForm"/>
+        });
     });
 
     // Ẩn tất cả các sidedropdown-container khi click chuột ra ngoài

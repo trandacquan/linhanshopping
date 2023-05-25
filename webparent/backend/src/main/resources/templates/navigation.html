@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
 	<div th:fragment="side-menu(remove)" th:remove="${remove}">
@@ -15,42 +16,75 @@
 
 			<hr style="border:0; height: 1px;
 			  background-image: linear-gradient(to right, rgba(0, 0, 0, 0),
-			  rgba(227, 227, 227, 0.75), rgba(0, 0, 0, 0)); margin-top: 16px;"/>
+			rgba(227, 227, 227, 0.75), rgba(0, 0, 0, 0)); margin-top: 16px;" />
+
+			<th:block sec:authorize="hasAuthority('Admin')">
+				<!-- user có role Admin mới được thấy các links bên trong Users-->
+				<button class="sidedropdown-btn">
+					<i class="fa fa-user-circle px-2" aria-hidden="true"></i> Users<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="sidedropdown-container">
+					<a class="sidedropdown-item" th:href="@{/users/new}"> Create New</a>
+					<a class="sidedropdown-item" th:href="@{/users}"> Show All</a>
+				</div>
+			</th:block>
+
+			<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+				<!-- user có role Admin hoặc Editor mới được thấy các links bên trong -->
+				<button class="sidedropdown-btn">
+					<i class="fa fa-book px-2"></i> Categories<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="sidedropdown-container">
+					<a class="sidedropdown-item" th:href="@{/categories/new}"> Create New</a>
+					<a class="sidedropdown-item" th:href="@{/categories}"> View All</a>
+				</div>
+
+				<button class="sidedropdown-btn">
+					<i class="fa fa-barcode px-2" aria-hidden="true"></i> Brand<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="sidedropdown-container">
+					<a class="sidedropdown-item" th:href="@{/brands/new}"> Create New</a>
+					<a class="sidedropdown-item" th:href="@{/brands}"> View All</a>
+				</div>
+			</th:block>
+
+			<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson', 'Shipper')">
+				<button class="sidedropdown-btn">
+					<i class="fa fa-tags px-2" aria-hidden="true"></i> Product<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="sidedropdown-container">
+					<a class="sidedropdown-item" th:href="@{/products/new}"> Create New</a>
+					<a class="sidedropdown-item" th:href="@{/products}"> View All</a>
+				</div>
+			</th:block>
+
+			<th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
+				<a href="#"><i class="fa fa-male px-2" aria-hidden="true"></i> Customers</a>
+			</th:block>
+
+			<th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Shipper')">
+				<a href="#"><i class="fa fa-cart-arrow-down px-2" aria-hidden="true"></i></i> Oders</a>
+			</th:block>
+
+			<!-- <hr style="border:0; height: 1px;
+			  background-image: linear-gradient(to right, rgba(0, 0, 0, 0),
+			rgba(227, 227, 227, 0.75), rgba(0, 0, 0, 0)); margin-top: 16px;" /> -->
 			
-			
-			<button class="sidedropdown-btn">
-				<i class="fa fa-user-circle px-2" aria-hidden="true"></i> Users<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="sidedropdown-container">
-				<a class="sidedropdown-item" th:href="@{/users/new}"> Create New</a>
-				<a class="sidedropdown-item" th:href="@{/users}"> Show All</a>
+			<div class="current-user d-flex justify-content-center position-relative fixed-bottom">
+				<div>
+					<button class="sidedropdown-btn">
+						<!-- <i class="fas fa-user icon-silver"></i><a th:href="@{/account}" sec:authentication="principal.fullname"></a><i class="fa fa-caret-down"></i> -->
+						<span><i class="fas fa-user icon-silver"></i><a class="d-inline" th:href="@{/account}" sec:authentication="principal.fullname"></a><i class="fa fa-caret-right"></i></span>
+					</button>
+					<div class="sidedropdown-container">
+						<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+							<input type="submit" />
+						</form>
+						<a class="sidedropdown-item" id="logoutLink" href="">Logout</a>
+					</div>
+				</div>
 			</div>
 
-			<button class="sidedropdown-btn">
-				<i class="fa fa-book px-2"></i> Categories<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="sidedropdown-container">
-				<a class="sidedropdown-item" th:href="@{/categories/new}"> Create New</a>
-				<a class="sidedropdown-item" th:href="@{/categories}"> View All</a>
-			</div>
-
-			<button class="sidedropdown-btn">
-				<i class="fa fa-barcode px-2" aria-hidden="true"></i> Brand<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="sidedropdown-container">
-				<a class="sidedropdown-item" th:href="@{/brands/new}"> Create New</a>
-				<a class="sidedropdown-item" th:href="@{/brands}"> View All</a>
-			</div>
-
-			<button class="sidedropdown-btn">
-				<i class="fa fa-tags px-2" aria-hidden="true"></i> Product<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="sidedropdown-container">
-				<a class="sidedropdown-item" th:href="@{/products/new}"> Create New</a>
-				<a class="sidedropdown-item" th:href="@{/products}"> View All</a>
-			</div>
-			<a href="#"><i class="fa fa-male px-2" aria-hidden="true"></i> Customers</a>
-			<a href="#"><i class="fa fa-cart-arrow-down px-2" aria-hidden="true"></i></i> Oders</a>
 		</div>
 	</div>
 </body>

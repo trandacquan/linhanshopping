@@ -14,14 +14,20 @@ $(document).ready(function () {
             e.preventDefault();
             document.logoutForm.submit();//<form th:action="@{/logout}" method="post" name="logoutForm"/>
         });
+
+        jQuery('.click-to-change-arrow').each(function () {
+            jQuery(this).click(function () {
+                jQuery(".fa-rotate-180").toggleClass("rotate");
+            });
+        });
     });
 
     // Ẩn tất cả các sidedropdown-container khi click chuột ra ngoài
-    $(document).click(function (event) {
-        var target = $(event.target);
-        if (!target.hasClass("sidedropdown-btn")) {
-            $(".sidedropdown-btn").removeClass("active");
-            $(".sidedropdown-container").slideUp();
-        }
-    });
+    // $(document).click(function (event) {
+    //     var target = $(event.target);
+    //     if (!target.hasClass("sidedropdown-btn")) {
+    //         $(".sidedropdown-btn").removeClass("active");
+    //         $(".sidedropdown-container").slideUp();
+    //     }
+    // });
 });

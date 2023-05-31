@@ -20,7 +20,7 @@
 				<th:block sec:authorize="hasAuthority('Admin')">
 					<!-- user có role Admin mới được thấy các links bên trong Users-->
 					<button class="sidedropdown-btn click-to-change-arrow">
-						<div><i class="fa fa-id-badge px-2" aria-hidden="true"></i></div> Users<i class="fa fa-caret-down fa-rotate-180"></i>
+						<div><i class="fa fa-id-badge px-2" aria-hidden="true"></i></div> Users<i class="fa fa-caret-down"></i>
 					</button>
 					<div class="sidedropdown-container">
 						<a class="sidedropdown-item" th:href="@{/users/new}"> Create New</a>
@@ -71,9 +71,13 @@
 
 				<div class="current-user">
 					<button class="sidedropdown-btn">
-						<!-- <i class="fas fa-user icon-silver"></i><a th:href="@{/account}" sec:authentication="principal.fullname"></a><i class="fa fa-caret-down"></i> -->
-						<span><i class="fas fa-user icon-silver"></i><a class="d-inline" th:href="@{/account}"
-								sec:authentication="principal.fullname"></a><i class="fa fa-caret-right"></i></span>
+						<i class="fas fa-user icon-silver"></i>
+						<a class="d-inline p-2" th:href="@{/account}"
+								sec:authentication="principal.fullname">
+						</a>
+						<span>
+							<i class="fa fa-caret-right p-2"></i>
+						</span>
 					</button>
 					<div class="sidedropdown-container">
 						<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">

@@ -14,13 +14,12 @@ $(document).ready(function () {
             e.preventDefault();
             document.logoutForm.submit();//<form th:action="@{/logout}" method="post" name="logoutForm"/>
         });
-
-        jQuery('.click-to-change-arrow').each(function () {
-            jQuery(this).click(function () {
-                jQuery(".fa-rotate-180").toggleClass("rotate");
-            });
-        });
     });
+
+    // $(".dropup-btn").on("click", function(){
+    //     $(this).toggleClass("active");
+    //     $(".dropup-menu").slideToggle("fast");
+    // });
 
     // Ẩn tất cả các sidedropdown-container khi click chuột ra ngoài
     // $(document).click(function (event) {

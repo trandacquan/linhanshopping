@@ -10,9 +10,8 @@
 
 <body>
 	<div class="container-fluid text-center">
-
-		<div>
-			<img th:src="@{/images/linhanshopping_logo3.png}" class="img-fluid" width="500px" />
+		<div class="p-2">
+			<img th:src="@{/images/linhanshopping_logo_3.png}" class="img-fluid" width="175px" />
 		</div>
 
 		<form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto">
@@ -25,7 +24,7 @@
 				<p class="text-warning">You have been logged out.</p>
 			</div>
 
-			<div class="border border-secondary rounded p-3">
+			<div class="border border-light rounded-lg p-4 shadow-lg">
 				<p>Access to Shopping Cart Control Panel</p>
 				<p>
 					<input type="email" name="email" class="form-control" placeholder="E-mail" required />
@@ -41,9 +40,6 @@
 				</p>
 			</div>
 		</form>
-
-		<div th:replace="fragments :: footer"></div>
-
 	</div>
 </body>
 

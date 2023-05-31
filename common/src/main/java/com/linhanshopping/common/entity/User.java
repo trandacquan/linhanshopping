@@ -3,6 +3,7 @@ package com.linhanshopping.common.entity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -132,6 +133,19 @@ public class User extends IdBasedEntity {
 		if (id == null || photos == null)
 			return "/images/default-user.png";
 		return "/user-photos/" + this.id + "/" + this.photos;
+	}
+
+	public boolean hasRole(String roleName) {//Hàm xác định 1 user có 1 role nào đó hay không
+		Iterator<Role> iterator = roles.iterator();
+
+		while (iterator.hasNext()) {
+			Role role = iterator.next();
+			if (role.getName().equals(roleName)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

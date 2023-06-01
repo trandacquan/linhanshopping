@@ -111,7 +111,7 @@ public class UserController {
 			FileUploadUtil.cleanDir(uploadDir);// xóa tất cả các file hình nằm bên trong folder hiện tại, vì 1 user chỉ
 												// có 1 hình
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);// save hình của user vào folder user-photos
-		} else {//Nếu multipartFile có cả file hình
+		} else {// Nếu multipartFile có cả file hình
 			if (user.getPhotos().isEmpty())
 				user.setPhotos(null);
 			userService.save(user);
@@ -126,6 +126,53 @@ public class UserController {
 		String firstPartOfEmail = user.getEmail().split("@")[0];
 		// Trả về trang list users có keyword là email của user này.
 		return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
+	}
+
+	@GetMapping("/users/edit/{id}")
+	public String editUser(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+		try {
+			User user = userService.get(id);
+			List<Role> listRoles = userService.listRoles();
+
+			model.addAttribute("user", user);
+			model.addAttribute("pageTitle", "Edit User (ID: " + id + ")");
+			model.addAttribute("listRoles", listRoles);
+
+			return "users/user_form";
+		} catch (UserNotFoundException ex) {
+			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+			return defaultRedirectURL;
+		}
+	}
+
+	@GetMapping("/users/delete/{id}")
+	public String deleteUser(@PathVariable(name = "id") Integer id, Model model,
+			RedirectAttributes redirectAttributes) {
+		try {
+			userService.delete(id);
+
+			String userPhotoDirectory = "user-photos/" + id;
+			FileUploadUtil.removeDir(userPhotoDirectory);// Sau khi delete user thì xóa folder chứa hình của user đó
+
+			redirectAttributes.addFlashAttribute("message", "The user id " + id + "has been deleted successfully!");
+
+		} catch (UserNotFoundException ex) {
+			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+		}
+
+		return defaultRedirectURL;
+	}
+
+	@GetMapping("/users/{id}/enabled/{status}")
+	public String updateUserEnabledStatus(@PathVariable("id") Integer id, @PathVariable("status") boolean enabled,
+			RedirectAttributes redirectAttributes, Model model) {
+
+		userService.updateUserEnabledStatus(id, enabled);
+		String status = enabled ? "enabled" : "disable";
+		String message = "The user id " + id + "has been " + status;
+		redirectAttributes.addFlashAttribute("message", message);
+
+		return defaultRedirectURL;
 	}
 
 }

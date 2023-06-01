@@ -13,7 +13,7 @@
                     <h2 class="page-title p-3 border-bottom">create new [[${title}]]</h2>
                 </div>
 
-                <form th:action="@{users/save}" method="post" style="max-width: 800px; margin: 0 auto"
+                <form th:action="@{/users/save}" method="post" style="max-width: 800px; margin: 0 auto"
                     th:object="${user}" enctype="multipart/form-data" onsubmit="return checkEmailUnique(this);">
 
                     <input type="hidden" th:field="*{id}">

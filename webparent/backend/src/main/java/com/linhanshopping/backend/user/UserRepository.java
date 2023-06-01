@@ -2,6 +2,7 @@ package com.linhanshopping.backend.user;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -16,4 +17,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 	
 	@Query("SELECT u FROM User u WHERE u.email = ?1")
 	public User getUserByEmail(String email);
+	
+	@Query("UPDATE User u SET u.enabled = ?2 WHERE u.id = ?1")
+	@Modifying//Khi INSERT/UPDATE/DELETE thì bắt buộc phải khai báo @Modifying
+	public void updateEnabledStatus(Integer id, boolean enabled);
+	//Dùng ?1 để gán giá trị của tham số thứ 1 vào vị trí này
 }

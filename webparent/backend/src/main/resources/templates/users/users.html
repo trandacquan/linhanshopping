@@ -15,8 +15,10 @@
 
                 <div class="d-flex justify-content-between">
                     <div th:replace="fragments :: export-menu('users','tag')"></div>
-                    <div class="p-2" th:replace="fragments :: search_form_and_message('/users/page/1')"></div>
+                    <div class="p-2" th:replace="fragments :: search_form('/users/page/1')"></div>
                 </div>
+
+                <div class="p-2" th:replace="fragments :: message"></div>
 
                 <table class="table table-striped table-hover shadow rounded">
                     <thead class="bg-light text-primary">
@@ -64,6 +66,7 @@
 
                 <div class="d-flex justify-content-between">
                     <div th:replace="fragments :: pagination('/users', 'users')"></div>
+                    <div th:replace="modal_fragments :: confirm_modal"></div>
                 </div>
 
                 <div th:replace="fragments :: footer"></div>
@@ -72,8 +75,18 @@
     </div>
 
     <script th:src="@{/js/navigation.js}"></script>
-    
-
+    <script th:src="@{/js/common_list.js}"></script>
+    <script type="text/javascript">
+        moduleURL = "[[@{/users}]]";
+        //Tự động thêm context-path vào trước. Lưu ý chỉ sử dụng trong file .html, không được sử dụng trong file .js
+        //--> Tương ứng với /LinhanShoppingBackend/users
+        $(document).ready(function() {//Khi user.html được load lên thì nó sẽ chạy vào phương thức ready() này, ready() dùng để khai báo các sự kiện (event) cho các thẻ
+            $(".link-delete").on("click", function(e) {//$(".link-delete") lấy ra thẻ có class là link-delete -->thẻ <a>, bắt sự kiện click cho thẻ <a> này
+                e.preventDefault();//Ngăn không cho href xảy ra --> không gọi xuống controller liền
+                showDeleteConfirmModal($(this), 'user');//$(this) chính là thẻ hiện tại, $(this) là 1 đối tượng JQuery -->có thể sử dụng các phương thức của JQuery
+            });
+        });
+    </script>
 </body>
 
 </html>

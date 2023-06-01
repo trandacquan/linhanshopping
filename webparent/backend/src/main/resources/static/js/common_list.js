@@ -4,7 +4,7 @@ function showDeleteConfirmModal(link, entityName) {
 	$("#yesButton").attr("href", link.attr("href"));//gán giá trị của thuộc tính href vào thuộc tính href của thẻ có id là yesButton
 
 	$("#confirmText").text("Are you sure you want to delete this "
-		+ entityName + " ID " + entityId + "?");//thay đổi nội dung của thẻ có id là confirmText
+		+ entityName + " ID " + entityId + " ?");//thay đổi nội dung của thẻ có id là confirmText
 
 	$("#confirmModal").modal();//hiển thị modal
 }

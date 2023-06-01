@@ -1,6 +1,7 @@
 package com.linhanshopping.backend.user;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.ArrayList;
 
 import javax.transaction.Transactional;
@@ -12,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 
 import com.linhanshopping.backend.role.RoleRepository;
 import com.linhanshopping.common.entity.Role;
@@ -105,7 +105,8 @@ public class UserService {
 
 		return true;
 	}
-	/*Hàm save User xuống db*/
+
+	/* Hàm save User xuống db */
 	public User save(User user) {
 		boolean isUpdatingUser = (user.getId() != null) ? true : false;// Nếu id=null thì Create, !=null(có id của user
 																		// truyền vào) thì Update
@@ -120,15 +121,38 @@ public class UserService {
 		} else {// Trường hợp Create -> luôn mã hóa password
 			encodePassword(user);
 		}
-		
-		return userRepo.save(user);//Save user xuống db
+
+		return userRepo.save(user);// Save user xuống db
 	}
-	
-	/*Hàm mã hoas password
-	 * phải import PasswordEncoder (Inteface) từ đầu để sử dụng*/
+
+	/*
+	 * Hàm mã hoas password phải import PasswordEncoder (Inteface) từ đầu để sử dụng
+	 */
 	private void encodePassword(User user) {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
+	}
+
+	public User get(Integer id) throws UserNotFoundException {
+		try {
+			return userRepo.findById(id).get();// lấy user ra theo id
+		} catch (NoSuchElementException ex) {
+			throw new UserNotFoundException("Could not find any user with id " + id);
+		}
+	}
+
+	public void delete(Integer id) throws UserNotFoundException {
+		Long countById = userRepo.countById(id);
+		if (countById == null || countById == 0) {
+			throw new UserNotFoundException("Could not find any user with id " + id);
+		}
+
+		userRepo.deleteById(id);
+	}
+
+	public void updateUserEnabledStatus(Integer id, boolean enabled) {
+		userRepo.updateEnabledStatus(id,enabled);
+		
 	}
 
 }

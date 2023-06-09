@@ -56,9 +56,10 @@ public class UserService {
 	}
 
 	public List<Integer> calculateSegment(int userCount, int baseSegment) {
-		List<Integer> segments = new ArrayList<>();
+		List<Integer> segments = new ArrayList<>();// Tạo một list segments chuẩn bị chứa 1 loạt các phân đoạn để lựa
+													// chọn
 
-		if (userCount <= baseSegment) {
+		if (userCount <= baseSegment) {// Nếu số lượng user <= baseSegment
 			segments.add(userCount);
 		} else {
 			int segmentCount = userCount / baseSegment;
@@ -151,8 +152,7 @@ public class UserService {
 	}
 
 	public void updateUserEnabledStatus(Integer id, boolean enabled) {
-		userRepo.updateEnabledStatus(id,enabled);
-		
+		userRepo.updateEnabledStatus(id, enabled);
 	}
 
 }

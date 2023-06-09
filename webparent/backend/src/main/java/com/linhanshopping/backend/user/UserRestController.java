@@ -13,12 +13,14 @@ public class UserRestController {
 	@Autowired
 	private UserService userService;
 
+	/*Hàm tự tính các phân đoạn để hiện thị show bao nhiêu phần tử cho người dùng*/
 	@GetMapping("/users/segments")
 	public List<Integer> getSegments(int userCount, int baseSegment) {
 		List<Integer> segments = userService.calculateSegment(userCount, baseSegment);
-		return segments;
+		return segments;//Trả về 1 list segments
 	}
 
+	/*Hàm check sự trùng lặp email*/
 	@PostMapping("/users/check_email")
 	public String checkDuplicateEmail(Integer id, String email) {
 		// params = { id: userId, email: userEmail}

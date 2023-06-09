@@ -22,7 +22,7 @@ import com.linhanshopping.common.entity.User;
 @Transactional
 public class UserService {
 
-	//public static final int USERS_PER_PAGE = 5;
+	public static final int A_USERS_PER_PAGE_SEGMENT = 5;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -51,6 +51,7 @@ public class UserService {
 		return userRepo.findAll(pageable);
 	}
 
+	// Hàm đếm số User và trả về kiểu int
 	public int count() {
 		return (int) userRepo.count();
 	}
@@ -74,6 +75,7 @@ public class UserService {
 				segments.add(userCount); // Phân đoạn "All"
 			}
 		}
+		
 
 		return segments;
 	}

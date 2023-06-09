@@ -57,12 +57,20 @@
                 <i class="fas fa-eraser"></i>
             </button>
 
-            <div class="show-entries p-1" name="userPerPage">
-                <span>Show: </span>
-                <select name="size" id="entryDropdown">
-                    <option value="5" th:selected="${size == 5 }">5</option>
-                    <option value="10" th:selected="${size == 10 }">10</option>
-                    <option value="15" th:selected="${size == 15}">15</option>
+            <div class="show-entries p-1 input-group" name="userPerPage">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-white">Show </span>
+                </div>
+
+                <select class="form-control" name="size" id="entryDropdown">
+                    <option hidden th:value="${size}" th:selected="${size}">[[${size}]]</option>
+                    <!--hidden -> thẻ chọn này sẽ bị ẩn. th:selected -> khi load trang lên thì hộp chọn sẽ mặc định chọn giá trị này (giá trị size của controller đổ về)
+                     Sở dỉ chọn giải pháp này là để lúc nào cũng hiện lên đầy đủ list size, đồng thời khi chọn thì sẽ có sự thay đổi onchange để có thể chạy  js-->
+                    <th:block th:each="size : ${segmentsSizeList}">
+                        <option th:value="${size}">[[${size}]]</option>
+                        <!--ở đây không để th:selected="${size}" là để thẻ option ẩn kia lúc nào cũng hiện lên size đang chọn
+                         nếu để th:selected="${size}" thì hộp chọn lúc nào cũng chọn size cuối cùng trong segmentsSizeList (vd như 22)-->
+                    </th:block>
                 </select>
             </div>
         </form>
@@ -80,6 +88,7 @@
             th:href="@{${moduleURL} + '/page/' + ${currentPage}
              + '?sortField=' + ${fieldName}
              +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir}
+             + '&size=' + ${size}
              + ${keyword != null ? '&keyword=' + keyword : ''}
              + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
             [[${columnLabel}]]
@@ -167,9 +176,9 @@
      th:href="@{${moduleURL} + '/page/' + ${pageNum}
      + '?sortField=' + ${sortField}
      + '&sortDir=' + ${sortDir}
-     + '&size=' + ${size}}
-     + ${keyword != null ? 'keyword=' + keyword : ''}
-     + ${categoryId != null ? '&categoryId=' + categoryId : ''}">
+     + '&size=' + ${size}
+     + ${keyword != null ? '&keyword=' + keyword : ''}
+     + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
      [[${label}]]
     </a>
 

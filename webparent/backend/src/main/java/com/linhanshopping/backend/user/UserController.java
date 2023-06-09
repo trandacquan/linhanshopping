@@ -58,12 +58,13 @@ public class UserController {
 			@Param("sortDir") String sortDir, // Ví dụg như ?xx1=yy1&xx2=yy2, trong bài này ' ?sortField=firstName&sortDir=asc&size=5 '
 			@Param("keyword") String keyword,
 			@Param("size")Integer size) {
-
+ 
 		Page<User> page = userService.listByPage(pageNum, sortField, sortDir, keyword, size);
 		List<User> listUsers = page.getContent();
+		List<Integer> segmentsSizeList = userService.calculateSegment(userService.count(), UserService.A_USERS_PER_PAGE_SEGMENT);
 
-//		long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE + 1;
-//		long endCount = startCount + UserService.USERS_PER_PAGE - 1;
+		//long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE + 1;
+		//long endCount = startCount + UserService.USERS_PER_PAGE - 1;
 		
 		long startCount = (pageNum - 1) * size + 1;
 		long endCount = startCount + size - 1;
@@ -86,6 +87,7 @@ public class UserController {
 		model.addAttribute("reverseSortDir", reverseSortDir);// đảo ngược sắp xếp
 		model.addAttribute("keyword", keyword);// từ khóa tìm kiếm
 		model.addAttribute("size", size);
+		model.addAttribute("segmentsSizeList", segmentsSizeList);
 
 		return "users/users";// trả về users/users.html
 	}

@@ -22,7 +22,7 @@ import com.linhanshopping.common.entity.User;
 @Transactional
 public class UserService {
 
-	public static final int USERS_PER_PAGE = 5;
+	//public static final int USERS_PER_PAGE = 5;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -37,13 +37,13 @@ public class UserService {
 		return (List<User>) userRepo.findAll(Sort.by("firstName").ascending());
 	}
 
-	public Page<User> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
+	public Page<User> listByPage(int pageNum, String sortField, String sortDir, String keyword, Integer size) {
 		// Đối tượng sort sẽ sắp xếp các giá trị trả về theo biến sortField
 		// tăng dần asc hoặc giảm dần desc
 		Sort sort = Sort.by(sortField);
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
-		Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE, sort);
+		Pageable pageable = PageRequest.of(pageNum - 1, size, sort);
 
 		if (keyword != null) {
 			return userRepo.findAll(keyword, pageable);

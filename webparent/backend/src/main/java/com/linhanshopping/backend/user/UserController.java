@@ -27,11 +27,12 @@ import com.linhanshopping.common.entity.User;
 
 @Controller
 public class UserController {
-
+	
+	//Khai báo một đường dẫn URL mặc định
 	private String defaultRedirectURL = "redirect:/users/page/1?sortField=firstName&sortDir=asc&size=5";
 
 	@Autowired
-	private UserService userService;
+	private UserService userService;//Autowired một srpingbean
 
 	/**
 	 * Hàm Show tất cả Users Khi truy cập /users thì mặc định sẽ load URL:
@@ -39,7 +40,7 @@ public class UserController {
 	 */
 	@GetMapping("/users")
 	public String listFistPage(Model model) {
-		return defaultRedirectURL;
+		return defaultRedirectURL;// Trả về URL mặc định đã khai báo bên trên
 	}
 
 	/* Hàm list All Users dùng để list tất cả Users không phân trang */
@@ -50,15 +51,22 @@ public class UserController {
 		return "users/users";
 	}
 
+	/* Hàm list All Users theo Page có phân trang */
 	@GetMapping("/users/page/{pageNum}")
-	public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
-			@Param("sortField") String sortField, @Param("sortDir") String sortDir, @Param("keyword") String keyword) {
+	public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model, // PathVariable dùng để bắt name={xxx} phần tên đúng vị trí trên URL
+			@Param("sortField") String sortField, // Param dùng để bắt các cặp key-value trên URL
+			@Param("sortDir") String sortDir, // Ví dụg như ?xx1=yy1&xx2=yy2, trong bài này ' ?sortField=firstName&sortDir=asc&size=5 '
+			@Param("keyword") String keyword,
+			@Param("size")Integer size) {
 
-		Page<User> page = userService.listByPage(pageNum, sortField, sortDir, keyword);
+		Page<User> page = userService.listByPage(pageNum, sortField, sortDir, keyword, size);
 		List<User> listUsers = page.getContent();
 
-		long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE + 1;
-		long endCount = startCount + UserService.USERS_PER_PAGE - 1;
+//		long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE + 1;
+//		long endCount = startCount + UserService.USERS_PER_PAGE - 1;
+		
+		long startCount = (pageNum - 1) * size + 1;
+		long endCount = startCount + size - 1;
 
 		if (endCount > page.getTotalElements()) {
 			endCount = page.getTotalElements();
@@ -77,6 +85,7 @@ public class UserController {
 		model.addAttribute("sortDir", sortDir);// sắp xếp tăng dần hoặc giảm dần
 		model.addAttribute("reverseSortDir", reverseSortDir);// đảo ngược sắp xếp
 		model.addAttribute("keyword", keyword);// từ khóa tìm kiếm
+		model.addAttribute("size", size);
 
 		return "users/users";// trả về users/users.html
 	}

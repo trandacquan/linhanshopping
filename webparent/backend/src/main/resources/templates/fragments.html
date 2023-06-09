@@ -40,7 +40,7 @@
     </div>
 
     <div th:fragment="search_form(moduleURL)">
-        <form th:action="@{${moduleURL}}" class="form-inline m-3">
+        <form th:action="@{${moduleURL}}" class="form-inline m-3" id="searchForm">
             <input type="hidden" name="sortField" th:value="${sortField}" />
 
             <input type="hidden" name="sortDir" th:value="${sortDir}" />
@@ -56,6 +56,15 @@
             <button type="button" class="btn btn-secondary" onclick="clearFilter()">
                 <i class="fas fa-eraser"></i>
             </button>
+
+            <div class="show-entries p-1" name="userPerPage">
+                <span>Show: </span>
+                <select name="size" id="entryDropdown">
+                    <option value="5" th:selected="${size == 5 }">5</option>
+                    <option value="10" th:selected="${size == 10 }">10</option>
+                    <option value="15" th:selected="${size == 15}">15</option>
+                </select>
+            </div>
         </form>
     </div>
 
@@ -152,13 +161,15 @@
         </div>
     </div>
 
+    <!--Link a dùng để truyền vào URL dạng: /LinhanShoppingBackend/users/page/1?sortField=lastName&sortDir=asc -->
     <a th:fragment="page_link(moduleURL, pageNum, label)"
      class="page-link"
      th:href="@{${moduleURL} + '/page/' + ${pageNum}
      + '?sortField=' + ${sortField}
      + '&sortDir=' + ${sortDir}
+     + '&size=' + ${size}}
      + ${keyword != null ? 'keyword=' + keyword : ''}
-     + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
+     + ${categoryId != null ? '&categoryId=' + categoryId : ''}">
      [[${label}]]
     </a>
 

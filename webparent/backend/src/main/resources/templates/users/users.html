@@ -64,15 +64,6 @@
                     </tbody>
                 </table>
 
-                <div class="show-entries p-1" name="userPerPage">
-                    <span>Display users per Page: </span>
-                    <select name="numberOfEntries" id="entryDropdown">
-                        <option value="5" th:selected="${numberOfEntries == 5 }">5</option>
-                        <option value="10" th:selected="${numberOfEntries == 10 }">10</option>
-                        <option value="15" th:selected="${numberOfEntries == 15}">15</option>
-                    </select>
-                </div>
-
                 <div class="d-flex justify-content-between">
                     <div th:replace="fragments :: pagination('/users', 'users')"></div>
                     <div th:replace="modal_fragments :: confirm_modal"></div>
@@ -93,6 +84,10 @@
             $(".link-delete").on("click", function(e) {//$(".link-delete") lấy ra thẻ có class là link-delete -->thẻ <a>, bắt sự kiện click cho thẻ <a> này
                 e.preventDefault();//Ngăn không cho href xảy ra --> không gọi xuống controller liền
                 showDeleteConfirmModal($(this), 'user');//$(this) chính là thẻ hiện tại, $(this) là 1 đối tượng JQuery -->có thể sử dụng các phương thức của JQuery
+            });
+
+            $("#entryDropdown").on("change", function () {
+                $("#searchForm").submit();
             });
         });
     </script>

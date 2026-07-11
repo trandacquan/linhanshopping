@@ -75,6 +75,10 @@ public class ShoppingUserDetails implements UserDetails {// implements Interface
 		return this.user.getFirstName() + " " + this.user.getLastName();
 	}
 
+	public Integer getId() {
+		return this.user.getId();
+	}
+
 	public void setFirstName(String firstName) {
 		this.user.setFirstName(firstName);
 	}

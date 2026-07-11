@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.linhanshopping.backend.FileUploadUtil;
+import com.linhanshopping.backend.security.ShoppingUserDetails;
 import com.linhanshopping.backend.user.export.UserCsvExporter;
 import com.linhanshopping.backend.user.export.UserExcelExporter;
 import com.linhanshopping.backend.user.export.UserPdfExporter;
@@ -58,7 +61,9 @@ public class UserController {
 			@Param("sortDir") String sortDir, // Ví dụg như ?xx1=yy1&xx2=yy2, trong bài này ' ?sortField=firstName&sortDir=asc&size=5 '
 			@Param("keyword") String keyword,
 			@Param("size")Integer size) {
- 
+
+		if (size == null) size = UserService.A_USERS_PER_PAGE_SEGMENT;
+
 		Page<User> page = userService.listByPage(pageNum, sortField, sortDir, keyword, size);
 		List<User> listUsers = page.getContent();
 		List<Integer> segmentsSizeList = userService.calculateSegment(userService.count(), UserService.A_USERS_PER_PAGE_SEGMENT);
@@ -141,7 +146,16 @@ public class UserController {
 	private String getRedirectURLtoAffectedUser(User user) {
 		String firstPartOfEmail = user.getEmail().split("@")[0];
 		// Trả về trang list users có keyword là email của user này.
-		return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
+		return "redirect:/users/page/1?sortField=id&sortDir=asc&size=5&keyword=" + firstPartOfEmail;
+	}
+
+	/* Hàm xem/sửa thông tin tài khoản của chính user đang đăng nhập (link "Wellcome ..." ở trang chủ) */
+	@GetMapping("/account")
+	public String viewAccount() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		ShoppingUserDetails loggedUser = (ShoppingUserDetails) authentication.getPrincipal();
+
+		return "redirect:/users/edit/" + loggedUser.getId();
 	}
 
 	@GetMapping("/users/edit/{id}")

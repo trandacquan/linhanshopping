@@ -10,8 +10,8 @@
 	<description>linhanshopping-project</description>
 	
 	<modules>
-		<module>linhanshopping-common</module>
-		<module>linhanshopping-webparent</module>
+		<module>common</module>
+		<module>webparent</module>
 	</modules>
 	
 </project>

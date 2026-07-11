@@ -22,8 +22,8 @@
 	</properties>
 	
 	<modules>
-		<module>linhanshopping-backend</module>
-		<module>linhanshopping-frontend</module>
+		<module>backend</module>
+		<module>frontend</module>
 	</modules>
 	
 	<dependencies>

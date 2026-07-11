@@ -74,12 +74,16 @@ public class Category extends IdBasedEntity {
 		return this.name;
 	}
 
+	// Trả về URL ảnh để hiển thị trên giao diện (không lưu xuống DB -->@Transient)
+	// Lưu ý: URL này phải khớp với nơi CategoryController lưu file thật ("../category-images/" + id, xem
+	// CategoryController.saveCategory()) và với cấu hình expose thư mục trong MvcConfig.addResourceHandlers().
+	// (Trước đây thiếu dấu "/" giữa "category-images" và id, gây lỗi ảnh không hiển thị -->đã fix.)
 	@Transient
 	public String getImagePath() {
 		if (this.image == null) {
-			return "/images/image-thumbnail.png";
+			return "/images/image-thumbnail.png"; // ảnh mặc định khi category chưa có ảnh
 		} else {
-			return "/category-images" + this.id + "/" + this.image;
+			return "/category-images/" + this.id + "/" + this.image;
 		}
 	}
 
